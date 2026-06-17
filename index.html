@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suryakant Kumar — AI Automations & Landing Pages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap">
+<style>
+  :root{
+    --ink:#0a0e1a;          /* deep technical navy canvas */
+    --ink-2:#111726;        /* raised surface */
+    --ink-3:#192236;        /* card */
+    --line:#243149;         /* hairline */
+    --text:#e8edf6;         /* primary text */
+    --muted:#8a97ad;        /* secondary text */
+    --signal:#ff8a3d;       /* warm signal amber — the "hot lead" color */
+    --signal-soft:#ffb277;
+    --ok:#39d98a;           /* pipeline success green */
+    --wire:#33415c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .mono{font-family:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+
+  /* ---- nav ---- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(12px);
+    background:rgba(10,14,26,.72);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.01em}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--signal);box-shadow:0 0 12px var(--signal);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .nav-cta{
+    font-size:14px;font-weight:600;padding:9px 16px;border-radius:8px;
+    background:var(--signal);color:#1a1206;transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,138,61,.35)}
+  .nav-links{display:flex;gap:28px;font-size:14px;font-weight:600;color:var(--text);font-family:"Proxima Nova","Montserrat","Inter",system-ui,sans-serif;letter-spacing:.01em}
+  .nav-links a{opacity:.9}
+  .nav-links a:hover{color:var(--signal);opacity:1}
+  @media(max-width:768px){
+    .nav-links{display:none}
+    .brand{font-size:14px;gap:8px}
+    .nav-cta{font-size:13px;padding:8px 13px}
+    .wrap{padding:0 16px}
+  }
+
+  /* ---- hero ---- */
+  header{padding:72px 0 48px;position:relative}
+  /* ---- marquee ticker (replaces static eyebrow) ---- */
+  .ticker{
+    width:100%;overflow:hidden;margin-bottom:32px;
+    -webkit-mask-image:linear-gradient(to right,transparent 0%,black 7%,black 93%,transparent 100%);
+    mask-image:linear-gradient(to right,transparent 0%,black 7%,black 93%,transparent 100%);
+  }
+  .ticker:hover .ticker-track{animation-play-state:paused}
+  .ticker-track{
+    display:flex;align-items:center;white-space:nowrap;
+    animation:ticker-scroll 36s linear infinite;
+    width:max-content;
+  }
+  .ticker-item{
+    font-family:"Dancing Script",cursive;
+    font-size:clamp(20px,2.6vw,30px);font-weight:600;
+    color:var(--signal);
+    text-shadow:0 0 20px rgba(255,138,61,.4);
+    padding:0 22px;flex-shrink:0;
+  }
+  .ticker-sep{
+    font-size:clamp(14px,1.6vw,20px);flex-shrink:0;
+    color:var(--muted);
+    font-family:"Dancing Script",cursive;
+  }
+  @keyframes ticker-scroll{
+    0%{transform:translateX(0)}
+    100%{transform:translateX(-50%)}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .ticker-track{animation:none}
+    .ticker{-webkit-mask-image:none;mask-image:none;overflow:visible}
+  }
+  h1{
+    font-size:clamp(34px,5.4vw,58px);line-height:1.04;letter-spacing:-.025em;font-weight:700;
+    max-width:15ch;
+  }
+  h1 .hi{color:var(--signal)}
+  .sub{color:var(--text);font-weight:450;font-size:clamp(16px,2vw,19px);margin-top:22px;max-width:52ch}
+  .cta-row{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+  .btn{
+    font-weight:600;font-size:15px;padding:13px 22px;border-radius:10px;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s;
+  }
+  .btn-primary{
+    background:linear-gradient(180deg,var(--signal-soft) 0%,var(--signal) 100%);
+    color:#1a1206;font-weight:600;
+    box-shadow:0 4px 16px rgba(255,138,61,.28),inset 0 1px 0 rgba(255,255,255,.22);
+    transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;
+  }
+  .btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 28px rgba(255,138,61,.45),inset 0 1px 0 rgba(255,255,255,.22);
+    filter:brightness(1.07);
+  }
+  .btn-primary:active{
+    transform:translateY(0);
+    box-shadow:0 2px 8px rgba(255,138,61,.25),inset 0 1px 0 rgba(255,255,255,.15);
+    filter:brightness(.97);
+  }
+  .btn-primary:focus-visible{
+    outline:2px solid var(--signal);outline-offset:3px;
+  }
+  .btn-ghost{border:1px solid var(--line);color:var(--text);background:var(--ink-3)}
+  .btn-ghost:hover{border-color:var(--signal);color:var(--signal-soft)}
+
+  /* ---- live pipeline (the signature) ---- */
+  .stage{
+    margin-top:60px;border:1px solid var(--line);border-radius:16px;
+    background:linear-gradient(180deg,var(--ink-2),var(--ink));
+    padding:26px 22px 30px;position:relative;overflow:hidden;
+  }
+  .stage-label{
+    font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+    display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;
+  }
+  .live{display:flex;align-items:center;gap:7px;color:var(--ok)}
+  .live .blip{width:7px;height:7px;border-radius:50%;background:var(--ok);animation:pulse 1.6s infinite}
+  .pipe{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:0;align-items:stretch;position:relative;
+  }
+  .node{
+    position:relative;text-align:center;padding:0 6px;z-index:2;
+  }
+  .chip{
+    margin:0 auto;width:54px;height:54px;border-radius:13px;display:grid;place-items:center;
+    background:var(--ink-3);border:1px solid var(--line);font-size:22px;
+    transition:all .35s ease;
+  }
+  .node.active .chip{
+    border-color:var(--signal);box-shadow:0 0 0 4px rgba(255,138,61,.12),0 0 24px rgba(255,138,61,.4);
+    transform:translateY(-2px);
+  }
+  .node .ntitle{font-size:12px;margin-top:11px;color:var(--text);font-weight:600}
+  .node .nsub{font-size:10.5px;margin-top:2px;color:var(--muted)}
+  /* wires */
+  .pipe::before{
+    content:"";position:absolute;top:27px;left:10%;right:10%;height:2px;background:var(--wire);z-index:0;
+  }
+  .flow{
+    position:absolute;top:23px;left:10%;height:10px;width:10px;border-radius:50%;
+    background:var(--signal);box-shadow:0 0 14px var(--signal);z-index:1;
+    animation:travel 5s linear infinite;
+  }
+  @keyframes travel{
+    0%{left:10%;opacity:0}
+    6%{opacity:1}
+    94%{opacity:1}
+    100%{left:90%;opacity:0}
+  }
+  /* readout */
+  .readout{
+    margin-top:26px;border-top:1px solid var(--line);padding-top:18px;
+    display:grid;grid-template-columns:1fr 1fr;gap:10px 28px;font-size:14px;
+  }
+  .readout .row{display:flex;justify-content:space-between;gap:12px}
+  .readout .k{color:#ffffff}
+  .readout .v{color:var(--text)}
+  .readout .v.hot{color:var(--signal);font-weight:600}
+  .readout .v.ok{color:var(--ok)}
+  @media(max-width:640px){
+    .readout{grid-template-columns:1fr}
+    .node .nsub{display:none}
+    .chip{width:44px;height:44px;font-size:18px}
+    .pipe::before{top:22px}
+    .flow{top:18px}
+  }
+
+  /* ---- sections ---- */
+  section{padding:64px 0;border-top:1px solid var(--line)}
+  .sec-head{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--signal-soft);font-weight:700;margin-bottom:14px}
+  h2{font-size:clamp(26px,3.4vw,36px);letter-spacing:-.02em;line-height:1.12;max-width:20ch}
+  .lead{color:#ffffff;margin-top:16px;max-width:58ch;font-size:16.5px}
+
+  /* offer cards */
+  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:38px}
+  @media(max-width:720px){.cards{grid-template-columns:1fr}}
+  .card{
+    background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:26px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .card:hover{border-color:var(--signal);transform:translateY(-3px)}
+  .card .num{font-size:12px;color:var(--signal)}
+  .card h3{font-size:18px;margin-top:8px;letter-spacing:-.01em}
+  .card p{color:var(--muted);font-size:14.5px;margin-top:10px}
+  .card ul{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:8px}
+  .card li{font-size:13.5px;color:var(--text);display:flex;gap:9px;align-items:flex-start}
+  .card li::before{content:"→";color:var(--signal);flex:none}
+
+  /* proof / demo */
+  .demo-box{
+    margin-top:34px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--ink-2);
+  }
+  .demo-vid{
+    aspect-ratio:16/9;background:
+      radial-gradient(circle at 50% 45%, rgba(255,138,61,.12), transparent 60%),var(--ink-3);
+    display:grid;place-items:center;position:relative;cursor:pointer;border-bottom:1px solid var(--line);
+  }
+  .play{
+    width:74px;height:74px;border-radius:50%;background:var(--signal);display:grid;place-items:center;
+    box-shadow:0 10px 40px rgba(255,138,61,.45);transition:transform .2s ease;
+  }
+  .demo-vid:hover .play{transform:scale(1.08)}
+  .play::after{content:"";border-left:22px solid #1a1206;border-top:13px solid transparent;border-bottom:13px solid transparent;margin-left:6px}
+  .demo-cap{padding:18px 22px;font-size:14px;color:var(--muted)}
+  .demo-cap b{color:var(--text);font-weight:600}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:38px}
+  @media(max-width:720px){.steps{grid-template-columns:1fr 1fr}}
+  .step{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:20px}
+  .step .sn{font-size:12px;color:var(--signal)}
+  .step h4{font-size:15px;margin-top:8px}
+  .step p{font-size:13px;color:#ffffff;margin-top:6px}
+
+  /* contact */
+  .contact{text-align:center;padding:84px 0}
+  .contact h2{margin:0 auto;max-width:24ch}
+  .contact .lead{margin:18px auto 0}
+  .contact .cta-row{justify-content:center}
+
+  footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:13px}
+  .foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+  /* fade-in on scroll */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <div class="brand"><span class="dot"></span> Suryakant Kumar</div>
+    <div class="nav-links">
+      <a href="#work">What I build</a>
+      <a href="#demo">Live demo</a>
+      <a href="#how">How it works</a>
+    </div>
+    <a class="nav-cta" href="#contact">Hire me</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <!-- LED ticker marquee -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <!-- first copy -->
+        <span class="ticker-item">AI Automation</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item">Web Development</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item">Work Runs Automatically</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item">Save Time &amp; Money</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item">No Manual Follow-Up</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item">Leads Handled 24/7</span><span class="ticker-sep">✦</span>
+        <!-- duplicate — seamless loop -->
+        <span class="ticker-item">AI Automation</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item">Web Development</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item">Work Runs Automatically</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item">Save Time &amp; Money</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item">No Manual Follow-Up</span><span class="ticker-sep">✦</span>
+        <span class="ticker-item">Leads Handled 24/7</span><span class="ticker-sep">✦</span>
+      </div>
+    </div>
+    <h1>I turn your incoming leads into <span class="hi">replies, records, and alerts</span> — automatically.</h1>
+    <p class="sub">Most businesses lose leads because nobody follows up fast enough. I build systems that capture every lead, qualify it with AI, reply in seconds, and ping your phone the moment a hot one lands — plus the landing page that feeds it.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#demo">Watch a 2-min demo</a>
+      <a class="btn btn-ghost" href="#contact">Start a project</a>
+    </div>
+
+    <!-- SIGNATURE: live self-running pipeline -->
+    <div class="stage reveal">
+      <div class="stage-label mono">
+        <span>lead-gen-pipeline.run()</span>
+        <span class="live"><span class="blip"></span> running</span>
+      </div>
+      <div class="pipe" id="pipe">
+        <div class="flow"></div>
+        <div class="node" data-i="0"><div class="chip">📥</div><div class="ntitle">Lead in</div><div class="nsub">form / site</div></div>
+        <div class="node" data-i="1"><div class="chip">🤖</div><div class="ntitle">AI scores it</div><div class="nsub">qualify intent</div></div>
+        <div class="node" data-i="2"><div class="chip">📊</div><div class="ntitle">Logged</div><div class="nsub">to your sheet</div></div>
+        <div class="node" data-i="3"><div class="chip">✉️</div><div class="ntitle">Auto-reply</div><div class="nsub">sent to lead</div></div>
+        <div class="node" data-i="4"><div class="chip">🔥</div><div class="ntitle">You're pinged</div><div class="nsub">WhatsApp alert</div></div>
+      </div>
+      <div class="readout mono">
+        <div class="row"><span class="k">lead.name</span><span class="v" id="r-name">Jane Doe</span></div>
+        <div class="row"><span class="k">ai.score</span><span class="v hot" id="r-score">9 / 10</span></div>
+        <div class="row"><span class="k">lead.company</span><span class="v" id="r-co">Acme Corp</span></div>
+        <div class="row"><span class="k">ai.intent</span><span class="v hot" id="r-intent">HOT</span></div>
+        <div class="row"><span class="k">reply.status</span><span class="v ok">sent &lt;2s</span></div>
+        <div class="row"><span class="k">alert.channel</span><span class="v ok">whatsapp ✓</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head">What I build</div>
+    <h2>Two things most freelancers can't do together.</h2>
+    <p class="lead">I'm one person who handles both the automation behind the scenes and the page in front of it — so your lead system actually works end to end, not in disconnected pieces.</p>
+    <div class="cards">
+      <div class="card reveal">
+        <div class="num mono">01</div>
+        <h3>Lead-gen automations</h3>
+        <p>Built in n8n — the system from the demo above, tailored to how your business already works.</p>
+        <ul>
+          <li>Capture leads from any form or site</li>
+          <li>AI qualifies and scores each one</li>
+          <li>Instant personalized auto-replies</li>
+          <li>Hot-lead alerts to WhatsApp or email</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <div class="num mono">02</div>
+        <h3>Landing pages &amp; sites</h3>
+        <p>Fast, clean pages that turn visitors into the leads your automation then handles.</p>
+        <ul>
+          <li>Conversion-focused landing pages</li>
+          <li>Built to match your brand</li>
+          <li>Forms wired straight into automation</li>
+          <li>Mobile-first, loads quick</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="demo">
+  <div class="wrap">
+    <div class="sec-head">Live demo</div>
+    <h2>See the exact system, running.</h2>
+    <p class="lead">This is a real working pipeline I built — a lead comes in, AI scores it, it's logged to a sheet, the lead gets an instant reply, and I get a WhatsApp alert. Two minutes, no slides.</p>
+    <div class="demo-box reveal">
+      <a class="demo-vid" id="demoVid" href="#" aria-label="Play demo video">
+        <div class="play"></div>
+      </a>
+      <div class="demo-cap">
+        <b>Lead → AI score → Google Sheet → email reply → WhatsApp alert.</b> Replace this placeholder with your Loom embed once recorded.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">How it works</div>
+    <h2>From first call to live system.</h2>
+    <div class="steps">
+      <div class="step reveal"><div class="sn mono">Step 1</div><h4>Quick call</h4><p>15 minutes. You tell me where leads come from and what slips through.</p></div>
+      <div class="step reveal"><div class="sn mono">Step 2</div><h4>I build it</h4><p>You get a working system mapped to your tools — sheets, email, WhatsApp.</p></div>
+      <div class="step reveal"><div class="sn mono">Step 3</div><h4>We test live</h4><p>We run a real lead through it together so you see it work.</p></div>
+      <div class="step reveal"><div class="sn mono">Step 4</div><h4>It runs</h4><p>It works 24/7. No lead waits. No follow-up forgotten.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="sec-head" style="justify-content:center">Start a project</div>
+    <h2>Got leads slipping through the cracks? Let's fix that this week.</h2>
+    <p class="lead">Tell me how you handle leads today and I'll show you exactly what I'd automate. First reply within a day.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="mailto:jnvsuryakant@gmail.com?subject=Automation%20project">Email me</a>
+      <a class="btn btn-ghost" id="waLink" href="#">Message on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>© 2026 Suryakant Kumar</span>
+    <span class="mono">AI automations &amp; landing pages · built with n8n</span>
+  </div>
+</footer>
+
+<script>
+  // sequential node activation, synced to the travelling dot (5s loop, 5 nodes)
+  const nodes=[...document.querySelectorAll('.node')];
+  const total=5000, n=nodes.length;
+  function tick(){
+    const t=(performance.now()%total)/total; // 0..1
+    const idx=Math.min(n-1,Math.floor(t*n));
+    nodes.forEach((el,i)=>el.classList.toggle('active',i===idx));
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  // cycle the readout so the demo feels live, not static
+  const leads=[
+    {name:'Jane Doe',co:'Acme Corp',score:'9 / 10',intent:'HOT'},
+    {name:'Marco Silva',co:'Brightline Co',score:'8 / 10',intent:'HOT'},
+    {name:'Priya N.',co:'Loop Studio',score:'4 / 10',intent:'WARM'},
+    {name:'D. Okafor',co:'Nimbus Ltd',score:'9 / 10',intent:'HOT'},
+  ];
+  let li=0;
+  setInterval(()=>{
+    li=(li+1)%leads.length;const L=leads[li];
+    document.getElementById('r-name').textContent=L.name;
+    document.getElementById('r-co').textContent=L.co;
+    document.getElementById('r-score').textContent=L.score;
+    const it=document.getElementById('r-intent');
+    it.textContent=L.intent;
+    it.className='v '+(L.intent==='HOT'?'hot':'');
+  },5000);
+
+  // scroll reveal
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // WhatsApp link — replace number with your own
+  document.getElementById('waLink').href='https://wa.me/916299991463?text=Hi%20Suryakant,%20I%20saw%20your%20portfolio';
+
+  // demo placeholder
+  document.getElementById('demoVid').addEventListener('click',e=>{
+    e.preventDefault();
+    alert('Replace this with your Loom embed once your demo video is recorded.');
+  });
+</script>
+</body>
+</html>
