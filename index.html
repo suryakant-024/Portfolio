@@ -216,16 +216,10 @@
     margin-top:34px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--ink-2);
   }
   .demo-vid{
-    aspect-ratio:16/9;background:
-      radial-gradient(circle at 50% 45%, rgba(255,138,61,.12), transparent 60%),var(--ink-3);
-    display:grid;place-items:center;position:relative;cursor:pointer;border-bottom:1px solid var(--line);
+    aspect-ratio:16/9;background:var(--ink-3);
+    display:block;width:100%;border-bottom:1px solid var(--line);
+    outline:none;
   }
-  .play{
-    width:74px;height:74px;border-radius:50%;background:var(--signal);display:grid;place-items:center;
-    box-shadow:0 10px 40px rgba(255,138,61,.45);transition:transform .2s ease;
-  }
-  .demo-vid:hover .play{transform:scale(1.08)}
-  .play::after{content:"";border-left:22px solid #1a1206;border-top:13px solid transparent;border-bottom:13px solid transparent;margin-left:6px}
   .demo-cap{padding:18px 22px;font-size:14px;color:var(--muted)}
   .demo-cap b{color:var(--text);font-weight:600}
 
@@ -361,11 +355,13 @@
     <h2>See the exact system, running.</h2>
     <p class="lead">This is a real working pipeline I built — a lead comes in, AI scores it, it's logged to a sheet, the lead gets an instant reply, and I get a WhatsApp alert. Two minutes, no slides.</p>
     <div class="demo-box reveal">
-      <a class="demo-vid" id="demoVid" href="#" aria-label="Play demo video">
-        <div class="play"></div>
-      </a>
+      <video class="demo-vid" controls playsinline preload="metadata"
+             poster="assets/videos/lead-gen-demo-poster.jpg">
+        <source src="assets/videos/lead-gen-demo.mp4" type="video/mp4">
+        Your browser doesn't support HTML5 video.
+      </video>
       <div class="demo-cap">
-        <b>Lead → AI score → Google Sheet → email reply → WhatsApp alert.</b> Replace this placeholder with your Loom embed once recorded.
+        <b>Lead → AI score → Google Sheet → email reply → WhatsApp alert.</b> A real working pipeline — no slides, no mockups.
       </div>
     </div>
   </div>
@@ -440,11 +436,6 @@
   // WhatsApp link — replace number with your own
   document.getElementById('waLink').href='https://wa.me/916299991463?text=Hi%20Suryakant,%20I%20saw%20your%20portfolio';
 
-  // demo placeholder
-  document.getElementById('demoVid').addEventListener('click',e=>{
-    e.preventDefault();
-    alert('Replace this with your Loom embed once your demo video is recorded.');
-  });
 </script>
 </body>
 </html>
