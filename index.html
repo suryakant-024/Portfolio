@@ -240,6 +240,51 @@
   footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:13px}
   .foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
+  /* ---- contact form ---- */
+  .form-section{padding:84px 0}
+  .form-section h2{margin-bottom:10px}
+  .form-section .form-sub{color:var(--muted);font-size:clamp(15px,1.8vw,17px);margin-bottom:40px;max-width:52ch}
+  .cf{
+    background:var(--ink-2);border:1px solid var(--line);border-radius:16px;
+    padding:36px 32px;max-width:600px;
+  }
+  @media(max-width:640px){.cf{padding:26px 20px}}
+  .cf-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:560px){.cf-row{grid-template-columns:1fr}}
+  .cf-field{display:flex;flex-direction:column;gap:7px;margin-bottom:18px}
+  .cf-field:last-of-type{margin-bottom:0}
+  .cf-field label{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+  .cf-field input,.cf-field textarea{
+    background:var(--ink-3);border:1px solid var(--line);border-radius:8px;
+    color:var(--text);font-family:inherit;font-size:15px;
+    padding:11px 14px;width:100%;outline:none;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .cf-field input::placeholder,.cf-field textarea::placeholder{color:var(--muted);opacity:.7}
+  .cf-field input:focus,.cf-field textarea:focus{
+    border-color:var(--signal);
+    box-shadow:0 0 0 3px rgba(255,138,61,.15);
+  }
+  .cf-field textarea{resize:vertical;min-height:120px;line-height:1.55}
+  .cf-hidden{display:none}
+  .cf-submit{margin-top:24px}
+  .cf-submit button{
+    width:100%;font-size:15px;font-weight:600;padding:13px 22px;border-radius:10px;border:none;cursor:pointer;
+    background:linear-gradient(180deg,var(--signal-soft) 0%,var(--signal) 100%);
+    color:#1a1206;
+    box-shadow:0 4px 16px rgba(255,138,61,.28),inset 0 1px 0 rgba(255,255,255,.22);
+    transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;
+  }
+  .cf-submit button:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(255,138,61,.45),inset 0 1px 0 rgba(255,255,255,.22);filter:brightness(1.07)}
+  .cf-submit button:active{transform:translateY(0);box-shadow:0 2px 8px rgba(255,138,61,.25);filter:brightness(.97)}
+  .cf-submit button:focus-visible{outline:2px solid var(--signal);outline-offset:3px}
+  .cf-success{
+    display:none;text-align:center;padding:32px 20px;
+    color:var(--ok);font-size:17px;font-weight:600;
+  }
+  .cf-success .ok-icon{font-size:36px;display:block;margin-bottom:10px}
+  .cf-success p{color:var(--muted);font-size:14px;margin-top:6px;font-weight:400}
+
   /* fade-in on scroll */
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
   .reveal.in{opacity:1;transform:none}
@@ -392,6 +437,57 @@
   </div>
 </section>
 
+<section class="form-section" id="get-in-touch">
+  <div class="wrap">
+    <div class="sec-head">Get in touch</div>
+    <h2>Tell me what you're working on.</h2>
+    <p class="form-sub">No sales call needed — just fill this in and I'll reply within a day with exactly what I'd build for you.</p>
+
+    <div class="cf reveal" id="cfWrap">
+      <!-- Netlify success state -->
+      <div class="cf-success" id="cfSuccess">
+        <span class="ok-icon">✓</span>
+        Message sent — I'll reply within a day.
+        <p>Check your inbox (and spam, just in case).</p>
+      </div>
+
+      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="cfForm" novalidate>
+        <input type="hidden" name="form-name" value="contact">
+
+        <!-- honeypot — hidden from real users -->
+        <div class="cf-hidden" aria-hidden="true">
+          <label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+        </div>
+
+        <div class="cf-row">
+          <div class="cf-field">
+            <label for="cf-name">Name <span aria-hidden="true">*</span></label>
+            <input id="cf-name" name="name" type="text" placeholder="Your name" required autocomplete="name">
+          </div>
+          <div class="cf-field">
+            <label for="cf-email">Email <span aria-hidden="true">*</span></label>
+            <input id="cf-email" name="email" type="email" placeholder="you@example.com" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="cf-field">
+          <label for="cf-company">Company <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+          <input id="cf-company" name="company" type="text" placeholder="Your business name" autocomplete="organization">
+        </div>
+
+        <div class="cf-field">
+          <label for="cf-message">Message <span aria-hidden="true">*</span></label>
+          <textarea id="cf-message" name="message" placeholder="Tell me how you currently handle leads, and what's slipping through…" required></textarea>
+        </div>
+
+        <div class="cf-submit">
+          <button type="submit">Send message</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap foot-in">
     <span>© 2026 Suryakant Kumar</span>
@@ -435,6 +531,26 @@
 
   // WhatsApp link — replace number with your own
   document.getElementById('waLink').href='https://wa.me/916299991463?text=Hi%20Suryakant,%20I%20saw%20your%20portfolio';
+
+  // contact form — AJAX submit so we can show inline success state
+  const cfForm=document.getElementById('cfForm');
+  const cfSuccess=document.getElementById('cfSuccess');
+  if(cfForm){
+    cfForm.addEventListener('submit',async function(e){
+      e.preventDefault();
+      const btn=cfForm.querySelector('button[type="submit"]');
+      btn.disabled=true;btn.textContent='Sending…';
+      try{
+        const body=new URLSearchParams(new FormData(cfForm));
+        await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body});
+        cfForm.style.display='none';
+        cfSuccess.style.display='block';
+      }catch(err){
+        btn.disabled=false;btn.textContent='Send message';
+        alert('Something went wrong — please email me directly at jnvsuryakant@gmail.com');
+      }
+    });
+  }
 
 </script>
 </body>
