@@ -544,7 +544,12 @@
       btn.disabled=true;btn.textContent='Sending…';
       try{
         const fd=new FormData(cfForm);
-        await fetch('https://rahulpaswan15042002.app.n8n.cloud/webhook/portfolio-contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:fd.get('name'),email:fd.get('email'),company:fd.get('company')||'',message:fd.get('message')})});
+        const payload={name:fd.get('name'),email:fd.get('email'),company:fd.get('company')||'',message:fd.get('message')};
+        // send to Netlify Forms and n8n webhook in parallel
+        await Promise.all([
+          fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(fd)}),
+          fetch('https://rahulpaswan15042002.app.n8n.cloud/webhook-test/portfolio-contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+        ]);
         cfForm.style.display='none';
         cfSuccess.style.display='block';
       }catch(err){
