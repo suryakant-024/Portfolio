@@ -543,8 +543,8 @@
       const btn=cfForm.querySelector('button[type="submit"]');
       btn.disabled=true;btn.textContent='Sending…';
       try{
-        const body=new URLSearchParams(new FormData(cfForm));
-        await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body});
+        const fd=new FormData(cfForm);
+        await fetch('https://rahulpaswan15042002.app.n8n.cloud/webhook/portfolio-contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:fd.get('name'),email:fd.get('email'),company:fd.get('company')||'',message:fd.get('message')})});
         cfForm.style.display='none';
         cfSuccess.style.display='block';
       }catch(err){
